@@ -5,7 +5,7 @@ using namespace std;
 int main()
 {
     int dd,mm,yy,total;
-    int A[12]={31,28,31,30,31,30,31,31,30,31,30,31};
+    int A[]={31,28,31,30,31,30,31,31,30,31,30,31};
     cout<<"\n Enter dd";
     cin>>dd;
     cout<<"\n Enter mm";
