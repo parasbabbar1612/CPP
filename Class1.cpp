@@ -6,7 +6,8 @@ class first
 private:
 	int a, b, c;
 public:
-	int sum(int a, int b)
+	first() : a(10),b(15)
+	int sum
 	{
 		c = a + b;
 		return c;
@@ -20,7 +21,7 @@ public:
 int main()
 {   
 	first f ;
-	f.sum(10,20);
+	f.sum();
 	f.show();
 
 
