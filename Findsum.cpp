@@ -6,8 +6,8 @@ int findsum(int x)
 {
 	int a;
 	int sum = 0;
-	if (x < 10) return x;
-	
+	if ((x/10)==0) return x;
+	if (x < 0) x = -(x);
 	while(x>0)
 	{
 		a = x % 10;
@@ -15,7 +15,8 @@ int findsum(int x)
 	    x /= 10;
 	}
 	x = sum;
-	findsum(x);
+	if ((x / 10) == 0) return x;
+	else findsum(x);
 }
 int main()
 {
