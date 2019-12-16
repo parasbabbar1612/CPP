@@ -1,0 +1,76 @@
+
+#include <iostream>
+#include <conio.h>
+using namespace std;
+#define MAX 1000
+class Stack
+{
+public:
+	int top;
+	int* a = new int[MAX];
+	Stack()
+	{
+		top = 0;
+	}
+	void push(int x)
+	{
+		if (top == MAX) cout << "\n Can't push more";
+		else
+		{
+			top++;
+			a[top] = x;
+		}
+	}
+	void pop()
+	{
+		if (top == 0) cout << "\n Stack is empty";
+		else top--;
+	}
+	int topel()
+	{
+		return a[top];
+	}
+	void printstack()
+	{
+		if (top == 0) cout << "\n Stack is empty";
+		else
+		{
+			for (int i = top; i >= 1; i--)
+				cout << a[i] << " ";
+
+		}
+		cout << "\n";
+	}
+	int fmax()
+	{
+		int maxel = INT_MIN;
+		for (int i = 1; i <= top; i++)
+		{
+			if (a[i] > maxel) maxel = a[i];
+		}
+		return maxel;
+	}
+	int fmin()
+	{
+		int minel = INT_MAX;
+		for (int i = 1; i <= top; i++)
+		{
+			if (a[i] < minel) minel = a[i];
+		}
+		return minel;
+	}
+};
+
+int main()
+{
+	Stack obj =Stack();
+	obj.push(2);
+	obj.push(3);
+	obj.push(4);
+	obj.printstack();
+	obj.pop();
+	obj.printstack();
+	cout << "\n Minimum elment is"<<obj.fmin();
+	cout << "\n Maximum elment is"<<obj.fmax();
+	cout << "\n Top is" << obj.topel();
+}
