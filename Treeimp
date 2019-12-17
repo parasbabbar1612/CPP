@@ -65,7 +65,14 @@ int findmaxdepth(Node* node)
 	rh = findmaxdepth(node->right);
 	return max(lh, rh)+1;
 }
-
+bool findel(Node* node,int x)
+{
+	if (node == NULL) return false;
+	else if (node->val==x) return true;
+	else if (node->val > x)  return	findel(node->left, x);
+	else return findel(node->right, x);;
+}
+	
 int main()
 {
 	Node *root =new Node(8);
@@ -85,4 +92,6 @@ int main()
 	cout << "\n Maximum node is";
 	searchmax(root);
 	cout << "\n Depth of tree is" << findmaxdepth(root);
+	if (findel(root, 10)==true) cout << "\n Found";
+	else cout << "\n Not found";
 }
