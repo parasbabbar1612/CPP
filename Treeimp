@@ -62,7 +62,7 @@ int findmaxdepth(Node* node)
 	int lh, rh;
 	if (node == NULL) return 0;
 	lh = findmaxdepth(node->left);
-	rh = findmaxdepth(node->left);
+	rh = findmaxdepth(node->right);
 	return max(lh, rh)+1;
 }
 
