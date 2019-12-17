@@ -39,6 +39,22 @@ void postorder(Node* node)
 	cout <<node->val << " ";
 
 }
+void searchmin(Node *node)
+{
+	while (node->left != NULL)
+	{
+		node = node->left;
+	}
+	cout << node->val;
+}
+void searchmax(Node* node)
+{
+	while (node->right != NULL)
+	{
+		node = node->right;
+	}
+	cout << node->val;
+}
 
 int main()
 {
@@ -48,10 +64,14 @@ int main()
 	root->left->right = new Node(6);
 	root->right = new Node(11);
 	root->right->left = new Node(9); 
-	root->right->left = new Node(12);
+	root->right->right = new Node(12);
 	inorder(root);
 	cout << "\n";
 	preorder(root);
 	cout << "\n";
 	postorder(root);
+	cout << "\n Minimum node is";
+	searchmin(root);
+	cout << "\n Maximum node is";
+	searchmax(root);
 }
