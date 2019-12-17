@@ -1,6 +1,8 @@
 
 #include <iostream>
 #include <conio.h>
+#include <algorithm>
+
 using namespace std;
 class Node
 {
@@ -55,6 +57,14 @@ void searchmax(Node* node)
 	}
 	cout << node->val;
 }
+int findmaxdepth(Node* node)
+{
+	int lh, rh;
+	if (node == NULL) return 0;
+	lh = findmaxdepth(node->left);
+	rh = findmaxdepth(node->left);
+	return max(lh, rh)+1;
+}
 
 int main()
 {
@@ -74,4 +84,5 @@ int main()
 	searchmin(root);
 	cout << "\n Maximum node is";
 	searchmax(root);
+	cout << "\n Depth of tree is" << findmaxdepth(root);
 }
