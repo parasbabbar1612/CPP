@@ -1,0 +1,27 @@
+#include<iostream>
+#include<set>
+#include<conio.h>
+#include<algorithm>
+
+using namespace std;
+
+int main()
+{
+	set<string, less<string>> s;
+	s.insert("Google");
+	s.insert("Microsoft");
+	s.insert("Amazon");
+	s.insert("Apple");
+	set<string, less<string>>::iterator it;
+	for (it = s.begin(); it != s.end(); it++)
+	{
+		cout << *it<<"\n";
+	}
+	cout << "\n Size of set is" << s.size();
+	string str;
+	cout << "\n Enter company to search";
+	cin >> str;
+	it = find(s.begin(), s.end(), str);
+	if (it != s.end()) cout << "\n Found";
+	else cout << "\n Not found";
+}

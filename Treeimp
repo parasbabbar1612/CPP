@@ -8,20 +8,20 @@ class Node
 {
 public:
 	int val;
-	Node *left,*right;
+	Node* left, * right;
 	Node(int x)
 	{
 		val = x;
 		left = NULL;
 		right = NULL;
 	}
-	};
+};
 void inorder(Node* node)
 {
 	if (node == NULL)
 		return;
 	inorder(node->left);
-	cout <<node->val << " ";
+	cout << node->val << " ";
 	inorder(node->right);
 }
 void preorder(Node* node)
@@ -38,10 +38,10 @@ void postorder(Node* node)
 		return;
 	postorder(node->left);
 	postorder(node->right);
-	cout <<node->val << " ";
+	cout << node->val << " ";
 
 }
-void searchmin(Node *node)
+void searchmin(Node* node)
 {
 	while (node->left != NULL)
 	{
@@ -63,24 +63,31 @@ int findmaxdepth(Node* node)
 	if (node == NULL) return 0;
 	lh = findmaxdepth(node->left);
 	rh = findmaxdepth(node->right);
-	return max(lh, rh)+1;
+	return max(lh, rh) + 1;
 }
-bool findel(Node* node,int x)
+bool findel(Node* node, int x)
 {
 	if (node == NULL) return false;
-	else if (node->val==x) return true;
+	else if (node->val == x) return true;
 	else if (node->val > x)  return	findel(node->left, x);
 	else return findel(node->right, x);;
 }
-	
+
+bool isbst(Node* node, int min, int max)
+{
+	if (node == NULL) return true;
+	if (node->val <= min || node->val > max) return false;
+	else return (isbst(node->left, min, node->val) && isbst(node->right, node->val, max));
+}
+
 int main()
 {
-	Node *root =new Node(8);
+	Node* root = new Node(8);
 	root->left = new Node(5);
 	root->left->left = new Node(3);
 	root->left->right = new Node(6);
 	root->right = new Node(11);
-	root->right->left = new Node(9); 
+	root->right->left = new Node(9);
 	root->right->right = new Node(12);
 	inorder(root);
 	cout << "\n";
@@ -92,6 +99,9 @@ int main()
 	cout << "\n Maximum node is";
 	searchmax(root);
 	cout << "\n Depth of tree is" << findmaxdepth(root);
-	if (findel(root, 10)==true) cout << "\n Found";
+	if (findel(root, 10) == true) cout << "\n Found";
 	else cout << "\n Not found";
+	if (isbst(root, INT_MIN, INT_MAX) == true) cout << "\n BST";
+	else cout << "\n Not BST";
+
 }

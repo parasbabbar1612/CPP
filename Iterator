@@ -1,0 +1,24 @@
+#include<vector>
+#include<conio.h>
+#include<iostream>
+#include<algorithm>
+
+using namespace std;
+
+int main()
+{
+	int start, end;
+	vector <int> v1{5,3,1,4,6,9};
+	vector <int> v2(6);
+	cout << "\n Enter range start";
+	cin >> start;
+	cout << "\n Enter range end";
+	cin >> end;
+	vector<int>::iterator it1 = v1.begin() + start;
+	vector<int>::iterator it2 = v1.begin() + end;
+	vector<int>::iterator it3 = copy(it1, it2, v2.begin());
+	for (it1 = v2.begin(); it1 != it3; it1++)
+	{
+		cout << *it1;
+	}
+}

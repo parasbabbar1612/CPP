@@ -1,0 +1,20 @@
+#include<vector>
+#include<conio.h>
+#include<iostream>
+#include<algorithm>
+
+using namespace std;
+
+bool findev(int x)
+{
+	return ((x % 2) == 0);
+}
+
+int main()
+{
+	vector <int> v{5,3,1,4};
+	vector<int>::iterator it;
+	it = find_if(v.begin(), v.end(), findev);
+	if (it != v.end()) cout << "\n Atleast one of them is even";
+	else cout << "\n No even number";
+}
