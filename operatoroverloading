@@ -1,0 +1,113 @@
+#include<iostream>
+#include<fstream>
+
+using namespace std;
+
+class Vol
+{
+public:
+	int height;
+	int width;
+	int depth;
+	Vol() {
+		height = 0;
+		width = 0;
+		depth = 0;
+	}
+	Vol(int x, int y, int z)
+	{
+		height = x;
+		width = y;
+		depth = z;
+	}
+	int findvolume();
+	Vol operator+(Vol v);
+	Vol operator*(Vol v);
+	int& operator[](int k);
+	friend ostream& operator<<(ostream& str, const Vol& v);
+	friend istream& operator>>(istream& str, Vol& v);
+	friend ofstream& operator<<(ofstream& str, const Vol& v);
+	friend ifstream& operator>>(ifstream& str, Vol& v);
+};
+Vol Vol::operator+(Vol v)
+{
+	Vol temp;
+	temp.height = height + v.height;
+	temp.width = width + v.width;
+	temp.depth = depth + v.depth;
+	return temp;
+}
+Vol Vol::operator*(Vol v)
+{
+	Vol temp;
+	temp.height = height * v.height;
+	temp.width = width * v.width;
+	temp.depth = depth * v.depth;
+	return temp;
+}
+int& Vol::operator[](int k)
+{
+	int def = -1;
+	switch (k)
+	{
+	case 0:return height;
+	case 1:return width;
+	case 2:return depth;
+	default:cout << "\n Error out of bounds";
+		break;
+	}
+	return def;
+}
+int Vol::findvolume()
+{
+	int volume = height * width * depth;
+	return volume;
+}
+ostream& operator<<(ostream& str, const Vol& v)
+{
+	str << "[" << v.height << "," << v.width << "," << v.depth << "]";
+	return str;
+}
+istream& operator>>(istream& str, Vol& v)
+{
+	str >> v.height >> v.width >> v.depth;
+	return str;
+}
+ofstream& operator<<(ofstream& str, const Vol& v)
+{
+	str << v.height << " " << v.width << " "<< v.depth ;
+	return str;
+}
+ifstream& operator>>(ifstream& str, Vol& v)
+{
+	str >> v.height >> v.width >> v.depth;
+	return str;
+}
+int main()
+{
+	int h1{ 10 }, w1{ 20 }, d1{ 30 };
+	int h2{ 20 }, w2{ 30 }, d2{ 40 };
+	Vol obj1(h1, w1, d1);
+	Vol obj2(h2, w2, d2);
+	Vol obj3;
+	Vol obj4;
+	obj3 = obj1 + obj2;
+	obj4 = obj1 * obj2;
+	cout << obj3.height << " " << obj3.width << " " << obj3.depth << endl;
+	cout << obj4.height << " " << obj4.width << " " << obj4.depth << endl;
+    cout << obj3.findvolume()<<endl;
+	cout << obj1[0] << " " << obj1[1] << " " << obj1[2]<<endl;
+	cout << obj1[3] << endl;
+	cout << obj3;
+	Vol obj5;
+	cin >> obj5;
+	cout << obj5;
+	Vol obj6(5, 10, 15);
+	ofstream out("data1.txt");
+	out << obj6;
+	out.close();
+	Vol obj7;
+	ifstream in("data1.txt");
+	in >> obj7;
+	cout << obj7;
+}
