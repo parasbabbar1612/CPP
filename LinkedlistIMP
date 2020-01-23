@@ -1,0 +1,139 @@
+#include<iostream>
+#include<conio.h>
+
+using namespace std;
+
+class Node
+{
+public:
+	int data;
+	Node* next;
+	Node()
+	{
+		next = nullptr;
+    }
+	Node(int x)
+	{
+		data = x;
+		next = nullptr;
+    }
+};
+
+class LinkedList
+{
+public:
+	Node* head;
+	LinkedList()
+	{
+		head = nullptr; 
+	}
+	void mklist(int m, int n);
+	void prlist();
+	void rmvone(int k);
+	void rvlist();
+	void srlist();
+};
+
+void LinkedList::mklist(int m, int n)
+{
+	for (int i = 0; i < m; i++)
+	{
+		Node* create = new Node(rand() % n);
+		create->next = head;
+		head = create;
+	}
+
+}
+
+void LinkedList::prlist()
+{
+	if (!head) cout << "\n Empty list can't be printed";
+	cout << "\n";
+	Node* l = head;
+	while (l)
+	{
+		cout << l->data << " ";
+		l = l->next;
+	}
+}
+
+void LinkedList::rmvone(int k)
+{
+	Node* p1 = head;
+	if (head->data == k)
+	{
+		head = head->next;
+		delete p1;
+		return;
+	}
+	Node* p2 = p1->next;
+    while (p2)
+	{
+		if (p2->data == k)
+		{
+				p1->next = p2->next;
+				delete p2;
+				return;
+		}
+		p1 = p2;
+		p2 = p2->next;
+     }
+	if (p2 == nullptr) cout << "\n Not found";
+	}
+	
+void LinkedList::rvlist()
+{
+	Node* p1 = head;
+	Node* p2 = nullptr;
+	Node* p3 = nullptr;
+	p2 = p1->next;
+	while (p2)
+	{
+		p3 = p2->next;
+		p2->next = p1;
+		if (p1 == head) p1->next = nullptr;
+		p1 = p2;
+		p2 = p3;
+	}
+	head = p1;
+}
+
+void LinkedList::srlist()
+{
+	Node* p1 = head;
+	Node* p2 = nullptr;
+	Node* lmin=nullptr;
+	while (p1)
+	{
+		int min = p1->data;
+		lmin = p1;
+		p2 = p1->next;
+		while (p2)
+		{
+			if (p2->data <= min)
+			{
+				min = p2->data;
+				lmin = p2;
+			}
+			p2 = p2->next;
+		}
+		lmin->data = p1->data;
+		p1->data = min;
+		p1 = p1->next;
+	}
+}
+
+int main()
+{
+	LinkedList l1;
+	l1.mklist(10, 100);
+	l1.prlist();
+	l1.rmvone(40);
+	l1.prlist();
+	l1.rvlist();
+	l1.prlist();
+	l1.srlist();
+	l1.prlist();
+
+	return 0;
+}
