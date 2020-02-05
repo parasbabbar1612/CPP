@@ -1,0 +1,38 @@
+#include<iostream>
+
+using namespace std;
+
+class init
+{
+public:
+	int a;
+	int b;
+	int c;
+	int* d;
+	init(const initializer_list<int> & l);
+	init()
+	{
+		a = 100;
+		b = 0;
+		c = 0;
+		d = nullptr;
+	}
+	init(int x)
+	{
+		a = x*10;
+	}
+};
+init :: init (const initializer_list<int> & l)
+{
+	a = *l.begin();
+}
+ostream& operator<<(ostream& str, const init& i)
+{
+	str << "[" << i.a << "," << i.b << "," << i.c <<","<<i.d<< "]";
+	return str;
+}
+int main()
+{
+	init obj{10};
+	cout << obj;
+}
