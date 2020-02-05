@@ -1,0 +1,59 @@
+#include<iostream>
+#include<vector>
+
+using namespace std;
+
+template <class T> class temp
+{
+public:
+	T a;
+	T b;
+	T c;
+	temp(const initializer_list<T> & l);
+	temp()
+	{
+		a = b = c = T(0);
+	}
+	temp(T x,T y,T z):a(x),b(y),c(z){}
+	T getvol() 
+	{
+		return a * b * c;
+	}
+	
+};
+template <class T> temp<T>::temp(const initializer_list<T> & l)
+{
+	auto it = l.begin();
+	a = *it;
+	it++;
+	b = *it;
+	it++;
+	c = *it;
+}
+
+template <class T> ostream& operator<<(ostream& str, const temp<T>& i)
+{
+	str << "[" << i.a << "," << i.b << "," << i.c <<"]";
+	return str;
+}
+template <class T> ostream& operator<<(ostream& str, const vector<T> & V)
+{
+	str << "< ";
+	for (auto i : V) str << i<<" ";
+	str << ">";
+	return str;
+}
+
+int main()
+{
+	temp<int> obj1{10,20,30};
+	cout << obj1<<endl;
+	cout<<obj1.getvol()<<endl;
+	temp<float> obj2(1.0, 5.5, 6.7);
+	cout << obj2<<endl;
+	cout << obj2.getvol()<<endl;
+	temp<string> obj3("Abc","Def","Ghi");
+	cout << obj3 << endl;
+	vector<temp<int>> v{{11, 12, 13},{10,20,40,100},{50,60,70}};
+	cout << v;
+}
