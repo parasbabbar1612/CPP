@@ -1,0 +1,100 @@
+#include<iostream>
+#include<map>
+#include<vector>
+#include<list>
+
+using namespace std;
+
+template <typename T1,typename T2> ostream & operator<<(ostream& str, const map<T1, T2>& m)
+{
+	str << "[";
+	for (auto it : m) str<< "("<<it.first << "," << it.second<<")";
+	str << "]";
+	return str;
+}
+template <typename T> ostream& operator<<(ostream& str, const vector<T>& v)
+{
+	str << "< ";
+	for (auto i : v) str << i << " ";
+	str << ">";
+	return str;
+}
+template <typename T> ostream& operator<<(ostream& str, const list<T>& l)
+{
+	str << "{ ";
+	for (auto i :l) str << i << " ";
+	str << "}";
+	return str;
+}
+template <typename T> ostream& operator<<(ostream& str, const vector<T *>& v)
+{
+	str << "< ";
+	for (auto i : v) str << *i << " ";
+	str << ">";
+	return str;
+}
+template <typename T> ostream& operator<<(ostream& str, const list<T *>& l)
+{
+	str << "{ ";
+	for (auto i : l) str << *i << " ";
+	str << "}";
+	return str;
+}
+void DB1toDB2(vector<list<int>>& DB1, list<vector<int>>& DB2);
+void DB1toDB3(vector<list<int>>& DB1, list<list<int>*> & DB3);
+int main()
+{
+	map<int, string> m1{ {1,"paras"},{2,"aakash"},{3,"Rishabh"} };
+	cout << m1 << endl;
+	vector <int> v1{ 1,2,3,4,5,6 };
+	cout << v1<<endl;
+	list<string> l1{ "mild","mild","regular" };
+	cout << l1 << endl;
+	string s = "Laalu";
+	string* s1 = &s;
+	string s2 = "Standard";
+	string* s3 = &s2;
+	string s4 = "Surya";
+	string* s5 = &s4;
+	vector<string *>v2{ s1,s3,s5 };
+	cout << v2<<endl;
+	string s6 = "Ashi";
+	string* s7 = &s6;
+	string s8 = "Pooja";
+	string* s9 = &s8;
+	string s10 = "Sonia";
+	string* s11 = &s10;
+	list<string *> l2{ s7,s9,s11 };
+	cout << l2<<endl;
+	vector<list<int>> DB1{ {1,2,3,4,5},{10,9,8,7},{5,6,7,8} };
+	cout << DB1<<endl;
+	list<vector<int>> DB2;
+	DB1toDB2(DB1,DB2);
+	cout << DB2<<endl;
+	list<list<int>*> DB3;
+	DB1toDB3(DB1, DB3);
+	cout << DB3;
+}
+void DB1toDB2(vector<list<int>>& DB1, list<vector<int>>& DB2)
+{
+	vector<int>conv;
+	for (auto i : DB1)
+	{
+		for (auto j : i)
+			conv.push_back(j);
+		DB2.push_back(conv);
+		conv.clear();
+	}
+
+}
+void DB1toDB3(vector<list<int>>& DB1, list<list<int>*>& DB3)
+{
+	for (auto i : DB1)
+	{
+		list<int>* l1 = new list<int>;
+		for (auto j : i)
+		  l1->push_back(j);
+		DB3.push_back(l1);
+	}
+		
+}
