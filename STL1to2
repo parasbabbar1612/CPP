@@ -2,6 +2,8 @@
 #include<map>
 #include<vector>
 #include<list>
+#include<set>
+#include<queue>
 
 using namespace std;
 
@@ -40,8 +42,18 @@ template <typename T> ostream& operator<<(ostream& str, const list<T *>& l)
 	str << "}";
 	return str;
 }
+template <typename T> ostream& operator<<(ostream& str, const set<T>& s)
+{
+	str << "[ ";
+	for (auto i : s) str << i << " ";
+	str << "]";
+	return str;
+}
+
 void DB1toDB2(vector<list<int>>& DB1, list<vector<int>>& DB2);
 void DB1toDB3(vector<list<int>>& DB1, list<list<int>*> & DB3);
+void DB3toDB4(list<list<int>*>& DB3, list<vector<int*>*>& DB4);
+void DB4toDB2(list<vector<int*>*>& DB4,list<vector<int>>& DB3);
 int main()
 {
 	map<int, string> m1{ {1,"paras"},{2,"aakash"},{3,"Rishabh"} };
@@ -66,17 +78,36 @@ int main()
 	string* s11 = &s10;
 	list<string *> l2{ s7,s9,s11 };
 	cout << l2<<endl;
-	vector<list<int>> DB1{ {1,2,3,4,5},{10,9,8,7},{5,6,7,8} };
+	set<int> set1{4,3,5,9,2};
+	cout << set1 << endl;
+	priority_queue<int> pq;
+	pq.push(10);
+	pq.push(8);
+	pq.push(22);
+	pq.push(9);
+	while (!pq.empty())
+	{
+		cout << pq.top()<<" ";
+		pq.pop();
+	}
+	cout << endl;
+    vector<list<int>> DB1{ {1,2,3,4,5},{10,9,8,7},{5,6,7,8} };
 	cout << DB1<<endl;
 	list<vector<int>> DB2;
 	DB1toDB2(DB1,DB2);
 	cout << DB2<<endl;
 	list<list<int>*> DB3;
 	DB1toDB3(DB1, DB3);
-	cout << DB3;
+	cout << DB3 << endl;
+	list<vector<int*> *> DB4;
+	DB3toDB4(DB3,DB4);
+	cout << DB4<<endl;
+	DB4toDB2(DB4, DB2);
+	cout << DB2<<endl;
 }
 void DB1toDB2(vector<list<int>>& DB1, list<vector<int>>& DB2)
 {
+	DB2.clear();
 	vector<int>conv;
 	for (auto i : DB1)
 	{
@@ -89,12 +120,40 @@ void DB1toDB2(vector<list<int>>& DB1, list<vector<int>>& DB2)
 }
 void DB1toDB3(vector<list<int>>& DB1, list<list<int>*>& DB3)
 {
+	DB3.clear();
 	for (auto i : DB1)
 	{
 		list<int>* l1 = new list<int>;
 		for (auto j : i)
 		  l1->push_back(j);
 		DB3.push_back(l1);
+	}
+}
+void DB3toDB4(list<list<int>*>& DB3, list<vector<int*> *>& DB4)
+{
+	DB4.clear();
+	for (auto i : DB3)
+	{
+		vector<int*>* v = new vector<int*>;
+		for (auto j : *i)
+		{
+			int* p1 = new int(j);
+			v->push_back(p1);
+		}
+		DB4.push_back(v);
+	}
+}
+void DB4toDB2(list<vector<int*>*>& DB4, list<vector<int>>& DB2)
+{
+	DB2.clear();
+	for (auto i : DB4)
+	{
+		vector<int> v;
+		for (auto j : *i)
+		{
+			v.push_back(*j);
+		}
+		DB2.push_back(v);
 	}
 		
 }
