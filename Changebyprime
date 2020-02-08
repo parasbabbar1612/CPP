@@ -1,0 +1,57 @@
+#include<iostream>
+#include<string>
+using namespace std;
+
+int primeNumber(int x);
+
+int main()
+{
+	string s;
+	cout << "\n Enter a string";
+	getline(cin,s);
+	for (int i = 0; i < s.length(); i++)
+	{
+		if(s[i]!=' ')
+		s[i] = char(primeNumber(int(s[i])));
+	}
+	for (int i = 0; i < s.length(); i++)
+		cout << s[i];
+}
+	
+int primeNumber(int x)
+{
+	int low, high;
+	int count = 0;
+	for (int i = x-1; i > 0; i--)
+	{
+		for (int j = 1; j <= i; j++)
+		{
+			if (i % j == 0) ++count;
+		}
+		if (count == 2)
+		{
+			low=i;
+			break;
+		}
+		count = 0;
+	}
+	count = 0;
+	for (int i = x+1; i < INT_MAX; i++)
+	{
+		for (int j = 1; j <= i; j++)
+		{
+			if (i % j == 0) ++count;
+		}
+		if (count == 2)
+		{
+			high = i;
+			break;
+		}
+		count = 0;
+	}
+	if ((high - x) == (x - low)) return low;
+	else if ((high - x) > (x - low)) return low;
+    else return high;
+}
+
+
