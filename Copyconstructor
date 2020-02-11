@@ -1,0 +1,121 @@
+#include<iostream>
+
+using namespace std;
+
+class Node
+{
+public:
+	int data;
+	Node* next;
+	Node() {
+		next = nullptr;
+	}
+	Node(int x)
+	{
+		data = x;
+		next = nullptr;
+	}
+};
+class Linkedlist {
+public:
+	Node* head;
+	Linkedlist()
+	{
+		head = nullptr;
+	}
+	Linkedlist(const initializer_list<int>& l)
+	{
+		head = nullptr;
+		for (auto i : l)
+		{
+			Node* l1 = new Node(i);
+			l1->next = head;
+			head = l1;
+		}
+	}
+	Linkedlist(const Linkedlist& l)
+	{
+		Node* p1 = l.head;
+		while (p1)
+		{
+			Node* p = new Node();
+			p->next = head;
+			head = p;
+			p1 = p1->next;
+		}
+		p1 = l.head;
+		Node *p = head;
+		while (p1)
+		{
+			p->data = p1->data;
+			p1 = p1->next;
+			p = p->next;
+		}
+	}
+	void operator=(const Linkedlist& l);
+	Linkedlist threetimes();
+
+};
+ ostream & operator<<(ostream& str, const Linkedlist& l)
+{
+	Node* p = l.head;
+	while (p)
+	{
+		str << p->data << " ";
+		p = p->next;
+	}
+	return str;
+}
+ void Linkedlist:: operator=(const Linkedlist& l)
+ {
+	 Node* p = head;
+	 while (head)
+	 {
+		 p = p->next;
+		 delete head;
+		 head = p;
+	 }
+	 Node* p1 = l.head;
+	 while (p1)
+	 {
+		 Node* p = new Node();
+		 p->next = head;
+		 head = p;
+		 p1 = p1->next;
+	 }
+	 p1 = l.head;
+	 p = head;
+	 while (p1)
+	 {
+		 p->data = p1->data;
+		 p1 = p1->next;
+		 p = p->next;
+	 }
+ }
+ Linkedlist Linkedlist:: threetimes()
+ {
+	 Linkedlist l1(*this);
+	 Node* p1 = head;
+	 Node* p2 = l1.head;
+	 while (p1)
+	 {
+		 p2->data = p1->data * 3;
+		 p1 = p1->next;
+		 p2 = p2->next;
+	 }
+	 return l1;
+ }
+int main()
+{
+	Linkedlist l1{ 1,2,3 };
+	cout<<l1;
+	cout << endl;
+	Linkedlist l2{l1};
+	//l1.head->data = 5;
+	cout<<l2;
+	cout << endl;
+	Linkedlist l3 = l1.threetimes();
+	cout << l3;
+	cout << endl;
+	cout << l1;
+}
