@@ -1,0 +1,19 @@
+#include<iostream>
+using namespace std;
+void lrval(int& i)
+{
+	cout << "L Value"<<endl;
+	
+}
+void lrval(int&& i)
+{
+	cout << "R value"<<endl;
+}
+int main()
+{
+	int i = 10;
+	lrval(i);
+	lrval(10);
+	lrval(i);
+	return 0;
+}
