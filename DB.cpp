@@ -45,19 +45,19 @@ void print_student_all_courses(map<int, tuple<int, float, map<int, tuple<int, fl
 //cout << DB << endl;
 template<class T1, class T2> ostream& operator<<(ostream& str, const map<T1, T2*>& m1)
 {
-	str << "DB:"<<endl;
+	str << "DB:" << endl;
 	for (auto i : m1)
 	{
 		str << "ID: " << i.first << endl;
 		if (i.second == nullptr) str << "NULL" << " ";
-		else 
+		else
 		{
 			str << "Overall GPA: " << setprecision(2) << fixed << get<1>(*(i.second)) << endl;
 			str << "Overall Credits: " << get<0>(*(i.second)) << endl;
 			if (get<2>((*(i.second))) == nullptr) str << "NULL" << " ";
 			else str << *(get<2>(*(i.second)));
 		}
-			
+
 	}
 	return str;
 
@@ -68,7 +68,7 @@ template<class T1, class T2> ostream& operator<<(ostream& str, const map<T1, T2>
 	for (auto i : m1)
 	{
 		str << "Semester: " << i.first << endl;
-		str << i.second ;
+		str << i.second;
 	}
 	return str;
 }
@@ -94,7 +94,7 @@ template<typename T1, typename T2, typename T3> ostream& operator<<(ostream& str
 
 template<class T> ostream& operator<<(ostream& str, const list<T*>& l)
 {
-	if (l.size() == 0) str << "{NULL}";
+	if (l.size() == 0) str << " ";
 	for (auto i : l)
 	{
 		if (i == nullptr) str << "NULL" << " ";
@@ -129,7 +129,7 @@ ostream& operator<<(ostream& str, const course& c)
 
 int main() {
 	map<int, tuple<int, float, map<int, tuple<int, float, list<course*>*> >*>*>  DB;
-
+	
 	add_student(DB, 11111);
 	course C1("CIS554", 1, 3, "A-"), C2("CSE674", 1, 3, "B+"), C3("MAT296", 8, 4, "A"), C4("WRT205", 5, 3, "A");
 
@@ -138,9 +138,8 @@ int main() {
 	add_course(DB, 20171, 11111, C3);
 	add_course(DB, 20171, 11111, C2);
 	print_student_semester_courses(DB, 20171, 11111);
-	
-	drop_course(DB, 20171, 11111, C1);
-    print_student_semester_courses(DB, 20171, 11111); //sorted according to course name
+    drop_course(DB, 20171, 11111, C1);
+	print_student_semester_courses(DB, 20171, 11111); //sorted according to course name
 	course C5("CIS351", 2, 3, "A-"), C6("PSY205", 5, 3, "B+"), C7("MAT331", 2, 3, "A"), C8("ECN203", 4, 3, "A");
 	add_course(DB, 20172, 11111, C5);
 	add_course(DB, 20172, 11111, C6);
@@ -148,7 +147,7 @@ int main() {
 	add_course(DB, 20172, 11111, C8);
 	add_course(DB, 20172, 11111, C3);
 	print_student_all_courses(DB, 11111);//ID GPA
-	
+
 	add_student(DB, 11112);
 	add_course(DB, 20171, 11112, C2);
 	add_course(DB, 20171, 11112, C5);
@@ -159,16 +158,20 @@ int main() {
 	add_course(DB, 20172, 11112, C8);
 	add_course(DB, 20172, 11112, C3);
 	add_course(DB, 20172, 11112, C5);
+	
 	add_course(DB, 20172, 11112, C1);
-	print_student_semester_courses(DB, 20172, 11112);
 
+	print_student_semester_courses(DB, 20172, 11112);
+	
 	print_student_all_courses(DB, 11112);
 	cout << DB << endl;
+	
 	remove_student(DB, 11111);
 	cout << DB << endl;
-
+	
 	getchar();
 	getchar();
+	
 	return 0;
 }
 
@@ -211,9 +214,9 @@ void remove_student(map<int, tuple<int, float, map<int, tuple<int, float, list<c
 			map<int, tuple<int, float, list<course*>*>>* delm = get<2>(*(delt));
 			for (auto it1 = (*delm).begin(); it1 != (*delm).end(); it1++)
 			{
-				list<course*>* 
-				dell = get<2>(it1->second);
-				for(auto i:*dell)
+				list<course*>*
+					dell = get<2>(it1->second);
+				for (auto i : *dell)
 				{
 					course* c = i;
 					delete c;
@@ -222,11 +225,11 @@ void remove_student(map<int, tuple<int, float, map<int, tuple<int, float, list<c
 				delete dell;
 				if (it1 == (*delm).end()) break;
 			}
-		(*delm).clear();
-		delete delm;
-		delete delt;
-		DB.erase(it);
-	    }
+			(*delm).clear();
+			delete delm;
+			delete delt;
+			DB.erase(it);
+		}
 	}
 }
 
@@ -250,7 +253,7 @@ void add_course(map<int, tuple<int, float, map<int, tuple<int, float, list<cours
 	{
 		if (get<2>(*(it->second)) == nullptr)
 		{
-			auto &i = get<2>(*(it->second));
+			auto& i = get<2>(*(it->second));
 			i = new map<int, tuple<int, float, list<course*>*>>();
 			course* newc = new course(c);
 			list<course*>* l1 = new list<course*>();
@@ -264,7 +267,7 @@ void add_course(map<int, tuple<int, float, map<int, tuple<int, float, list<cours
 		else
 		{
 			get<0>(*(it->second)) += c.credits;
-			auto &i = get<2>(*(it->second));
+			auto& i = get<2>(*(it->second));
 			auto it1 = (*(i)).find(semester);
 			if (it1 != (*(i)).end())
 			{
@@ -366,12 +369,14 @@ void drop_course(map<int, tuple<int, float, map<int, tuple<int, float, list<cour
 						float currcredits = float(get<0>(it1->second));
 						float totalpoints = currgpa * currcredits;
 						totalpoints -= float(calgp * c.credits);
-						get<1>(it1->second) = totalpoints / (currcredits - c.credits);
+						if ((currcredits - c.credits) == 0) get<1>(it1->second) = 0.00;
+						else get<1>(it1->second) = totalpoints / (currcredits - c.credits);
 						currgpa = get<1>(*(it->second));
 						currcredits = float(get<0>(*(it->second)));
 						totalpoints = currgpa * currcredits;
 						totalpoints -= float(calgp * c.credits);
-                        get<1>(*(it->second)) = totalpoints / (currcredits - c.credits);
+						if ((currcredits - c.credits) == 0) get<1>(*(it->second)) = 0.00;
+						else get<1>(*(it->second)) = totalpoints / (currcredits - c.credits);
 						get<0>(*(it->second)) -= c.credits;
 						get<0>((it1->second)) -= c.credits;
 						break;
@@ -389,7 +394,7 @@ void print_student_semester_courses(map<int, tuple<int, float, map<int, tuple<in
 	{
 		if (get<2>(*(it->second)) != nullptr)
 		{
-			auto &i = get<2>(*(it->second));
+			auto& i = get<2>(*(it->second));
 			auto it1 = (*(i)).find(semester);
 			if (it1 != (*(i)).end())
 			{
@@ -403,8 +408,17 @@ void print_student_semester_courses(map<int, tuple<int, float, map<int, tuple<in
 		}
 		else
 		{
-			cout << DB << endl;
+			auto& i = get<2>(*(it->second));
+			auto it1 = (*(i)).find(semester);
+			cout << "ID: " << it->first << endl;
+			cout << "Semester: " << it1->first << endl;
+			cout << "GPA: " << setprecision(2) << fixed << get<1>(it1->second) << endl;
+			cout << "Credits: " << get<0>(it1->second) << endl;
+			if(get<2>(it1->second)==nullptr) cout<< "";
+			cout << endl;
+
 		}
+		
 	}
 }
 void print_student_all_courses(map<int, tuple<int, float, map<int, tuple<int, float, list<course*>*> >*>*>& DB, int id) {
@@ -413,10 +427,10 @@ void print_student_all_courses(map<int, tuple<int, float, map<int, tuple<int, fl
 	if (it != DB.end())
 	{
 		cout << "ID: " << id << endl;
-		cout << "Overall GPA: "<<setprecision(2)<<fixed<<get<1>(*(it->second)) << endl;
+		cout << "Overall GPA: " << setprecision(2) << fixed << get<1>(*(it->second)) << endl;
 		cout << "Overall Credits: " << get<0>(*(it->second)) << endl;
 		map<int, tuple<int, float, list<course*>*>>* outm = get<2>(*(it->second));
-		cout << *outm<<endl;
+		cout << *outm << endl;
 	}
 }
 
