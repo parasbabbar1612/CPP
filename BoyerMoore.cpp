@@ -7,6 +7,7 @@ using namespace std;
 
 bool boyermoore(string tex, string ser)
 {
+	if(ser.length()>tex.length()) return false;
 	int size = ser.length();
 	unordered_map<char, int> inc;
 	for (int i = 0; i < size; i++)
