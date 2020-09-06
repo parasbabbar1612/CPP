@@ -31,6 +31,9 @@ inline void lower_case(string& s) {
 }
 
 int findKangarooScore(vector<string> words, vector<string> wordsToSynonyms, vector<string> wordsToAntonyms) {
+    for(auto &i:words) lower_case(i);
+    for(auto &i:wordsToSynonyms) lower_case(i);
+    for(auto &i:wordsToAntonyms) lower_case(i);
     unordered_map<string, vector<string>> synonyms;
     unordered_map<string, vector<string>> antonyms;
     for (auto i : wordsToSynonyms) {
@@ -75,9 +78,6 @@ int main() {
     vector<string> words{ "aStouND","DeSK","AmicABLe","blossOM","hEllo","AniMOsity","BARren","cUrTaiL","DePArTed","ScioN","gOOdBYE" };
     vector<string> synonyms{ "GOOdbye:aDIeu,Adios,ciAO,paRTINg","ANIMOSITY:haTe","BaRren:baRE","sCioN:SoN,HEir,bRaNCH","curtaIL:cUt" };
     vector<string> antonymns{ "animoSiTY:aMIty","HeLLO:gOOdByE" };
-    for (auto& i : words) lower_case(i);
-    for (auto& i : synonyms) lower_case(i);
-    for (auto& i : antonymns) lower_case(i);
     cout << findKangarooScore(words, synonyms, antonymns);
     return 0;
 }
