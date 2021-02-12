@@ -21,8 +21,8 @@ int main() {
 	Comp c1;
 	int a = 10, b = 11;
 	check_large(a, b);
-	thread t1{ c1,10,11 };
-	thread t2{ [](const int& a,const int& b) {int larger = a > b ? a : b;cout << larger << " Using lambda "; },10,11 };
+	thread t1{ c1,a,b };
+	thread t2{ [](const int& a,const int& b) {int larger = a > b ? a : b;cout << larger << " Using lambda "; },a,b };
 	t1.join();
 	t2.join();
 	return 0;
