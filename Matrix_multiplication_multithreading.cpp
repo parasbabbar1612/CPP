@@ -54,10 +54,10 @@ int main() {
 		}
 		cout << endl;
 	}
-	multiply(a, b, c, 0, row/2, 0, col_/2);
 	thread t1{multiply,ref(a),ref(b),ref(c),0,row/2,col_/2,col_};
 	thread t2{multiply,ref(a),ref(b),ref(c),row/2,row,0,col_/2};
 	thread t3{multiply,ref(a),ref(b),ref(c),row/2,row,col_/2,col_};
+	multiply(a, b, c, 0, row/2, 0, col_/2);
 	t1.join();
 	t2.join();
 	t3.join();
