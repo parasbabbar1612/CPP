@@ -22,6 +22,7 @@ public:
 	void create_fenwick_tree();
 	int prefix_sum(const int& range); 
 	int find_range_sum(const int& i, const int& j);
+	void update_element(const int& index, const int& value);
 };
 
 int Fenwick::invert_bits(int num) {
@@ -72,6 +73,17 @@ int Fenwick::find_range_sum(const int& i, const int& j) {
 	return prefix_sum(j);
 }
 
+void Fenwick::update_element(const int& index, const int& value) {
+	int diff = value - orignial_array[index];
+	if (!diff) return;
+	int curr_index = index + 1;
+	while (curr_index < fenwick_tree.size()) {
+		fenwick_tree[curr_index]+=diff;
+		curr_index = calc_next(curr_index);
+	}
+	orignial_array[index] = value;
+}
+
 int main() {
 	vector<int> range_array;
 	int size;
@@ -88,6 +100,22 @@ int main() {
 	cin >> start;
 	cout << "Enter the end index less than "<<size<<endl;
 	cin >> end;
-	cout << new_tree.find_range_sum(start, end);
+	cout << new_tree.find_range_sum(start, end)<<endl;
+	char choice = 'N';
+	cout << "Do you want to change and try?(Y/N)" << endl;
+	cin >> choice;
+	if (tolower(choice) == 'y') {
+		int index, val;
+		cout << "Enter change index" << endl;
+		cin >> index;
+		cout << "Enter change val" << endl;
+		cin >> val;
+		new_tree.update_element(index, val);
+		cout << "Enter the start index greater than equal to 0" << endl;
+		cin >> start;
+		cout << "Enter the end index less than " << size << endl;
+		cin >> end;
+		cout << new_tree.find_range_sum(start, end);
+	}
 	return 0;
 }
